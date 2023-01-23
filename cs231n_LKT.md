@@ -2,7 +2,6 @@
 
 <center><font size="5">By Leikrit莱克里特</font><br/></center>
 
-[toc]
 
 # 图像分类·Image Classification
 
