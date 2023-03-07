@@ -8,7 +8,7 @@
 - Semantic (语义) error
 - Logic error
 
-
+***
 Java的判断语句只能为```true```或者```false```
 
 ```java
@@ -16,6 +16,7 @@ if(a%2) //Semantic error
 
 if(a%2==0) //Correct
 ```
+***
 
 ### Intermediate Code
 
@@ -34,53 +35,209 @@ Synthesis:
 
 ### Front end and Back end
 
-前后端
-
 #### Front end
+
+Operations that depend only on the source language, include: the scanner, parser, and semantic analyzer, source code optimizer.
 
 From Scanner to Intermediate Code Optimizer and Genetator
 
+#### Back end
+
+Operations that depend only on the target language, include: code generator, target code optimizer.
+
+### Realization of compiler structure
+
+Compiler may repeat one or more passes before generating target code.
+
+#### Definition of Pass
+
+A **pass** is to process of the entire source program or it's intermediate representation one time.
+
+- A typical arrangement is one pass for scanning and parsing, one pass for semantic analysis and source-level optimization, and a third pass for code generation and target level optimization.
+
+- How many times depend on the source language and the target machine.
+
+
+
 ### Interpreter and Compiler
+
+Similarity:
+
+- They are all language implementing system.
+
+Differences:
+
+- Interpreter executes the source program during translation.
+
+- Compiler generates object code that is executed after translation completes.
+
+***
+
+**The Translation Process**
+- Scanner
+- Parser
+- Semantic Analyzer
+- Code Optimizer
+- Code Generator
+
 
 ## Scanner
 
-Token
+Scanner performs lexical analysis.
+
+### Task of Scanner
+
+Reading the source program as a file of characters and dividing it up into meaningful units called **tokens**.
+
+- Input: source program which is a stream of characters.
+- Output: tokens.
+
+### Token
+
+Each token is a sequence of characters that represents a unit of information in the source program.
+
+Tokens fall into several categories:
+
 - Identifier
 - Keyword
 - Number
 - Operator
 - Special symbols 
 
-Token is presented as (Kind, Value)
+Token is presented as **(Kind, Value)**
 
-new lines should be remembered since the position of errors should be reporte.
+> New lines should be remembered since the position of errors should be reporte.
 
+### Other operations performed by scanner
 
-Literal pool
+- Enter identifiers into the symbol table.
+- Enter literals in literal table.
 
-new or not
+> Literals include: numeric constants and quoted string of text.
+
+### Literal pool
+
+#### New or not
+In different programming languages, the operator ```==``` performs different comparisons. In Java, it compares two variables' address. In C++, it compares two variables' contents.
+
+That means in Java:
+
+```Java
+a1 = "Hello world";
+a2 = "Hello world";
+a3 = a1;
+a1 ==a2; // True
+a1 == a3; // True
+a4 = new string "Hello world";
+a1 == a4; // False
+```
 
 ## Parser
 
-Syntax analysis
+Parser performs syntax analysis.
+
+### Task of parser
+
+The parser receives the source code in the form of tokens from the scanner and performs the syntax analysis, which determines the structure of the program.
 
 - input: stream of tokens
 
 - output: parse tree or syntax tree
 
-## Semantic analysis
+### Parser tree
+
+Parser tree is a useful aid to visualizing the syntax of a program or program element.
+
+### Abstract Syntax Tree (Syntax Tree)
+
+A condensation of the information contained in the parser tree.
+
+## Semantic analyzer
+
+- Semantics of a program are its "meanings".
+- **Static semantic**: properties of a program that can be determined prior to execution.
+- **Dynamic semantic**: properties of a program that can only be determined by execution.
+
+### Task of Semantic Analyzer
+
+Analyze static semantic.
+
+### Static Semantics include
 
 - Declaration 
 - Type checking
 
-## Intermediate code
+Semantic analysis is realized by symbol table. Attributes are entered into symbol table.
 
-optional 
+### Output of semantic analyzer
 
-## Optimizer 
+Semantic analyzer will produce an annotated tree. Attributes are added to the tree as annotations.
+
+## Source Code Optimizer
+
+Optimization performs after semantic analysis that depend only on the source code.
+
+- Some optimizations can be performed directly on the syntax tree.
+
+- It is easier to optimize using **Intermediate Code**.
+
+## Intermediate code (optional)
+
+- A form of code representation intermediate between source code and object code.
+
+- Intermediate codes have the following properties: structure is simple, meaning is clear, and it is easy to translate them to object code.
+
+### Intermediate Representation (IR)
+- Any internal representation for the source code used by the compiler is called IR.
+- The syntax tree and intermediate code are all IR.
 
 ## Code Generator 
 
+### Task of code generator
 
+- The code generator takes the IR and generates code for the target machine.
+- Usually use assembly language as target code.
+- It is related to the properties of target machine: the number of registers, addressing mode, data representation and so on.
 
+## Target Code Optimizer
+
+### Task of the target code opimizer
+
+To improve the target code generated by the code generator, saving execution time and memory space.
+
+This opimization includes:
+
+- Change addressing mode to improve performance
+- Replaceslow instructions by faster ones
+- Eliminate redundant or unnecssary operations
+
+## Auxiliary Components of Compiler Phases
+
+### Literal Table
+
+#### Usage of Literal Table
+
+Literal table stores constants and strings used in a program.
+
+#### Purpose of Literal Table
+
+The literal table is important in reducing the size of a program in memory by allowing the reuse of constants and strings.
+
+### Symbol Table
+
+#### Usage of Symbol Table
+
+Symbol table keeps information associated to identifiers: functions,variables, constants and data type identifiers.
+
+#### Symbol table with compiler phases
+
+- Scanner, parser or semantic analyzer may enter identifiers and information into the table.
+
+- The optimization and code generation will use the information provided by the symbol table.
+
+## Error Handler
+
+- Errors can be detected during almost every compiler phase.
+
+- Error handler must generate meaningful error message and resume compilation after each other.
 
