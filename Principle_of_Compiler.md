@@ -351,6 +351,7 @@ The exponentiation of $L$ is defined as:
     - Closure of $L$ (written as $L^*$) denotes **zero** or more concatentaions of $L$.
     - $L^*=L^0 \cup L^1 \cup L^2 \cup L^3 \cup ...$
     - Example: 
+  
     $$\begin{aligned}
     L&=\{0,1\} \\
     L^*&=L^0 \cup L^1 \cup L^2 \cup L^3 \cup ...\\
@@ -359,6 +360,7 @@ The exponentiation of $L$ is defined as:
 
     - Positive closure of $L$ (written as $L+$) denotes **one** or more concatenation of $L$.
     - Example:
+ 
     $$\begin{aligned}
     L^+&=L^1 \cup L^2 \cup L^3 \cup ... \\
     L^*&=L^0 \cup L^+\\
@@ -388,6 +390,7 @@ A regular expression is one of the following:
 - The precedence of the operations is:
 $$*>.>|$$
 - Example
+
 $$\begin{aligned}
 L(a|bc^*)&=\{a\} \cup (\{b\}\{\varepsilon,c,cc,...\}) \\
 &= \{a\} \cup \{ b,bc,bcc,...\} \\
