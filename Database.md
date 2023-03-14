@@ -206,3 +206,253 @@ Database Administrator's tasks:
 
 
 
+# Lesson 2
+
+## Structure of DBMS
+
+## History of DBMS
+
+## ER Diagram ER图
+
+### Entities and attributes 实体与属性
+
+- An **entity** is an object in the real world that is distinguishable from other objects. **实体**是现实世界中可区别于其他对象的“事件”或“物体”。
+
+- An **entity** is describe using a set of  **attributes** whose values are used to distinguish one entity from another of same type.
+
+- An **entity set** is a collection of the entities of the same type. **实体集**是具有相同类型及共享相同性质（或属性）的实体集合。
+
+- All entries in a given entity set have the same attributes (the values may be different).
+
+### ER Diagram
+
+数据库的总体逻辑结构（模式）可以用**E-R图**进行图形表示，E-R图由以下元素构成：
+
+- **矩形**，代表实体集。
+- **椭圆**，代表属性。
+- **菱形**，代表实体集间的联系。
+- **线段**，将属性于实体集相连或将实体集与联系相连。
+- **箭头**，指出的一方为唯一关系。 
+
+### Different attributes 属性的分类
+
+#### Simple attributes 单值属性
+
+- contains a single value 
+对一个特定实体只有单独的一个值的属性。
+
+> 正常的椭圆，没有再连接到其他椭圆上
+
+#### Composite attribute 复合属性
+
+- contains several components 
+可以被划分为更小的部分。
+
+> 正常的椭圆，由其本身又连接出很多具体的椭圆
+
+#### Multi-valued attribute 多值属性
+
+- contains more than one value 
+一个属性对应一组值（例如一个人可以有多个电话号码）。
+
+> Represented as double ovals 双椭圆
+
+#### Derived attribute 派生属性
+
+- Computed from other attributes 
+这类属性的值可以从其他的相关属性或实体派生出来。
+
+> Represented as dash line 虚线椭圆
+
+### Key attributes 键属性
+
+#### Key 键（码）
+
+- A set of attributes that can **uniquely** identify an entity.
+可以唯一标识特定实体的一组属性。
+>Represented as underline 下划线
+
+#### Composite Key 组合键
+
+- Two or more attributes are used to serve as a key.
+有两个或多个属性需要一起同时被用作键。
+
+An entity may have more than one key.
+一个实体可以有多于一个的键。
+
+A **minimal** set of attributes that uniquely identifies an entity is called a **candidate key**.
+唯一标识实体的**最小**属性集称为**候选键**。
+
+> 实际上就是这个集合里面的所有的属性不能够被单独或者组合之后作为键。
+
+If there are many candidate keys, we should choose one candidate key as the **primary key**.
+如果有很多候选键，我们应该选择一个候选键作为**主键**。
+
+Sometimes, **artificial keys** can be created. 
+有时，可以创建人工键。
+
+### Relationship 联系
+
+- A **relationship** is an association among several entities.
+**联系**是指多个实体之间的相互关联。
+
+- The **degree** refers to the number of entity sets that participate in a relationship set.
+参与联系集的实体集的数目被称为联系集的**度**。
+
+- Relationship sets that involve two entity sets are **binary** (or degree two).
+有两个实体集参与的联系集叫**二元集**。
+
+#### Binary relationship 二元联系
+
+- A relationship can also have attributes which are used to describe the record information about the **relationship** (instead of the information of each individual entity).
+联系还可以具有用于描述关于**联系**的记录信息的属性(而不是每个单独实体的信息)。这样的属性被称为**描述性属性**。
+
+#### Recursive relationship 递归联系
+
+- Entity sets of a relationship need not be distinct.
+联系的实体集是相同的。（实体集自己与自己的联系）
+
+- Sometimes, a relationship might involve two entities in the same entity set.
+有时，联系可能涉及同一实体集中的两个实体。
+
+### Constraints 约束
+
+- The model describes data to be stored and the **constraints** over the data.
+
+- The mapping of a binary relationship can be classified into the following case:
+[image1]
+
+**映射基数**，或基数比例，指明通过一个联系集能同时与另一实体相联系的实体数目。
+
+#### One-to-many relationship 多对一
+
+- An entity in B can be associated with at most one entity in A.
+
+#### Many-to-one relationship 一对多
+
+#### Many-to-many relationship 多对多
+
+- There is no restriction in the mapping.
+
+#### One-to-one relationship 一对一
+
+### Participation constraint 参与约束
+
+#### Total 全部
+
+- Each entity in the entity set must be associated in at least one relationship
+如果实体集$E$中的每个实体都参与到联系集$R$的至少一个联系中，称实体集$E$**全部**参与联系集$R$。
+
+> double line 双线
+
+#### Partial 部分
+
+- Each entity in the entity set may (or may not) be associated in a relationship.
+如果实体集$E$中只有部分实体参与到联系集$R$的联系中，称实体集$E$**部分**参与联系集$R$。
+
+### Weak/Strong entities 弱实体集与强实体集
+
+#### Strong entity 强实体集
+
+An entity can be uniquely identified by some attributes related to this entity.
+有主键（primary key）的实体集称为**强实体集**。
+
+#### Weak entity
+
+An entity cannot be uniquely identified by all attributes related to this entity.
+没有主键的实体集称为**弱实体集**。
+
+- The set of attributes that uniquely identify a weak entity for a given owner entity is called a **discriminator** or **partial key**.
+为给定所有者实体唯一标识弱实体的属性集称为**辨别符**或**部分键**。
+
+- If a weak entity set $W$ is dependent on a strong entity set $E$, we say that $E$ **owns** $W$.
+一个弱实体集必须与另一个称为**标识实体集（identifying entity set）**或**属主实体集**关联才有意义。每个弱实体必须与一个标识实体关联。
+
+> 双矩形
+
+### Class Hierarchy
+
+Sometimes, it is natural to classify the entities in an entity set into subclasses.
+
+- Attributes are **inherited** by the entity set in the subclass.
+
+- A class hierarchy can be viewed in one of the two ways:
+A class is specialized into subclasses.
+
+The subclasses are generalized by a superclass.
+
+#### Why class hierarchy?
+- Add **descriptive attribute** that make sense only for the entities in a subclass.
+- Identify the set of entities that participate in some relationships.
+
+#### Overlap constraints
+
+- Determine whether two subclasses are allowed to contain the same entity.
+
+#### Covering constraints
+
+- Determine whether the entities in the subclasses collectively include all entities in the superclass.
+
+### Non-binary relationship
+
+In general, and non-binary relationship can be represented using binary relationships by creating an artificial entity set.
+
+#### Ternary relationship
+
+- A relationship involving 3 entities.
+
+
+
+# Lesson 3
+
+## Steps in Relational Model Analysis
+
+1. Strong entity
+    - Create the relation schemas
+    - If there is a derived attribute: Include this derived attribute or not include this derived attribute. (Might cause data inconsistencies)
+    - If there is composite attribute: Include the high-level attribute only or include all low-level attributes. (Reduce redundancy)
+    - If there is a multi-valued attribute: Include one attribute only or create another table containing the primary key of the entity set and the multi-valued attribute.
+2. Weak entity
+    - For each weak entity set W in the ER model:
+3. 1-to-1 Relationship
+    - Include the primary key as **foreign key** and rename it.
+4. 1-to-many Relationship
+5. Many-to-many Relationship
+    - Create a new table
+6. Non-binary Relationship
+    - Create a new relation schema S to represent R.
+    - Include as foreign key attributes in S the primary keys of the participationg entity sets.
+    - Also include any attributes of the non-binary relationship set as attributes of S.
+
+## Translating Class Hierarchy
+
+## Relational Algebra
+ - Query languages are specialized languages for asking questions or queries, that involve the data in a database.
+ - Queries in terms of operators.
+
+ ### Basic Operators
+
+ #### Projection $\Pi_L(R)$
+
+ - Deletes attributes that are not in *projection list L*.
+ - **Schema** of result contains exactly the fields in the projection list, with the same names that they had in the (only) input relation.
+ - Projection operator eliminates ***duplicates***.
+
+ #### Selection $\sigma_C(R)$
+
+ - Select rows (records/tuples) that satisfy a *selection condition C*.
+ - **Schema** of result identical to schema of (only) input relation.
+
+#### Set Operations
+
+- **Union($\cup$), Intersection($\cap$), Set-Difference($-$)**
+
+#### Cartesian Product $\times$
+
+#### Join $\Join$
+
+- Natural join
+Join is a cartesian product follow by a selection:
+$$
+R_1 \Join R_2=\sigma_{R_1.x = R_2.x}(R_1 \times R_2)
+$$
